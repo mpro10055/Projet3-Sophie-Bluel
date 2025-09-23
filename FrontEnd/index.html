@@ -35,7 +35,7 @@
 				<div class="uploader">
 				<label for="file-input" class="labelupload">
 					<img id="preview" class="preview hidden" src="#" alt="Aperçu de l'image" />
-					<div class ="icon-upload hidden">
+					<div id="icon-upload">
 					<i class="fa-regular fa-image"></i>	
 					</div>
 					</label>
@@ -49,13 +49,14 @@
 				<div class="choices">
 				<label for="titre" class="titre">titre</label>
 				<input type="text" id="titre" name="title" class="title-input"/>
-				<label for="categorie" class="categorie">catégorie</label>
+				<label for="categorie" class="categorie" name="categorie">catégorie</label>
 				<select id="categorie" name="category" class="category-input">
 				<option value="">--Choisir une catégorie--</option>
 				</select>
 				</div>
 			<button type="submit" class="valider">valider</button>
 			</form>
+			<p id="error" class="error hidden"></p>
 		</section>
 			</div>
 		</div>

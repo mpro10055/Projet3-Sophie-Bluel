@@ -172,18 +172,10 @@ if (modificationadmin) {
     console.log("Ouverture barre d’édition");
   });
 }
+
 ////////////////////////////////////////////////////////
 
-document.addEventListener("DOMContentLoaded", () => {
-  const modall = document.getElementById("modall");
-  const pictures = document.querySelector("#modall .pictures");
-  const closemodal = document.getElementById("closemodal");
-  const modificationadmin = document.getElementById("modification");
-  const onemodal = document.getElementById("one");
-  const ajoutpictures = document.getElementById("ajoutpictures"); 
-  const addphoto = document.getElementById("addphoto");
-
-  console.log("modall =", modall);
+ const pictures = document.querySelector("#modall .pictures");
   function displaymodalpictures(works) {
     if (!pictures) {
       console.error("Élément introuvable dans la modale");
@@ -204,9 +196,47 @@ document.addEventListener("DOMContentLoaded", () => {
       deleteButton.classList.add("delete-button");
       pictures.appendChild(deleteButton);
 
+      const deleteUrl = 'http://localhost:5678/api/works/' + work.id;
 
+      deleteButton.addEventListener('click', (e) => {
+
+      fetch(deleteUrl, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erreur lors de la suppression de l\'œuvre' + response.status);
+          }
+        })
+        .then(data => {
+          console.log('Œuvre supprimée avec succès:', data);
+          allWorks=allWorks.filter(w=>w.id !==work.id)
+          displayWorks(allWorks);
+          displaymodalpictures(allWorks);
+
+        })
+        .catch(error => {
+          console.error('Erreur:', error);
+        });
+  }
+      );
     });
   }
+
+  
+document.addEventListener("DOMContentLoaded", () => {
+
+  const modall = document.getElementById("modall");
+  const pictures = document.querySelector("#modall .pictures");
+  const closemodal = document.getElementById("closemodal");
+  const modificationadmin = document.getElementById("modification");
+  const onemodal = document.getElementById("one");
+  const ajoutpictures = document.getElementById("ajoutpictures"); 
+  const addphoto = document.getElementById("addphoto");
+
   if (modificationadmin) {
     modificationadmin.addEventListener("click", (e) => {
       e.preventDefault();
@@ -235,12 +265,16 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Ouverture ajoutpictures");
     });
   }
+});
+
+
+
   ///if (modall){
   ///modall.addEventListener("click", (e) => {
     ///e.preventDefault();
    /// modall.classList.remove("active");
     ///console.log("Fermeture modale");
-  });
+  
   ///}/
 ///});
 
@@ -289,7 +323,6 @@ document.addEventListener("DOMContentLoaded", () => {
 const fileInputElement = document.getElementById("file-input");
 const uploadButtonElement = document.getElementById("upload-button");
 const imagePreviewElement = document.getElementById("preview");
-const resetimage = document.getElementById("resetimage");
 const iconupload = document.getElementById("icon-upload");
 
 fileInputElement.addEventListener("change", (e) => {
@@ -302,27 +335,55 @@ fileInputElement.addEventListener("change", (e) => {
 
       if (imagePreviewElement.src) {
         uploadButtonElement.classList.add("hidden");
+        imagePreviewElement.classList.remove("hidden");
         iconupload.classList.add("hidden");
       }
     }
     reader.readAsDataURL(file);
   }
   console.log("Selected file:", file);
-  const resetimage = document.getElementById("resetimage");
-  resetimage.addEventListener("click", (e) => {
-    e.preventDefault();
-    imagePreviewElement.src = "";
-    fileInputElement.value = "";
-    console.log("Image reset");
   });
-});
 
 
-document.getElementById("formulaire").addEventListener("submit", (e) => {
-e.preventDefault();
-console.log("formulaire");
-const form=e.target;
-const formData=new FormData(form);
+
+
+const titleInput = document.getElementById("titre");
+const categorySelect = document.getElementById("categorie");
+const formulaire = document.getElementById("formulaire");
+
+formulaire.addEventListener("submit", (e) => {
+  e.preventDefault();
+  console.log("formulaire");
+
+ const file = fileInputElement.files[0];
+ const title = titleInput.value;
+ const category = Number(categorySelect.value);
+
+  if (!file) {
+    error.textContent = "Aucun fichier sélectionné";
+    error.classList.remove("hidden");
+    console.error("Aucun fichier sélectionné");
+    return;
+  }
+  if (!title) {
+    error.textContent = "Le titre est requis";
+    error.classList.remove("hidden");
+    console.error("Le titre est requis");
+    return;
+  }
+  if (!category) {
+    error.textContent = "La catégorie est requise";
+    error.classList.remove("hidden");
+    console.error("La catégorie est requise");
+    return;
+  }
+
+
+  const formData = new FormData();
+  formData.append("image", fileInputElement.files[0]);
+  formData.append("title", title);
+  formData.append("category", category);
+  console.log("FormData prepared:", formData);
 
 
 fetch("http://localhost:5678/api/works", {
@@ -339,10 +400,16 @@ fetch("http://localhost:5678/api/works", {
     return response.json();
   })
   .then((data) => {
-    console.log(data);
+    console.log("Réponse du serveur:", data);
+    allWorks.push(data);
+    displayWorks(allWorks);
+    displaymodalpictures(allWorks);
   })
   .catch((error) => {
     console.error("Erreur lors de l'envoi du formulaire:", error);
   });
 });
-  
+
+
+
+///////////////////////////////////////

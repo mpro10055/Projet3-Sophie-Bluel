@@ -235,6 +235,7 @@ footer nav ul {
 }
 
 #login-section {
+  height: 560px;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   place-items: center;
@@ -246,6 +247,7 @@ footer nav ul {
   gap: 1rem;
   grid-template-columns: 1fr;
   width: 400px;
+  gap: 25px;
 }
 
 #introduction.hidden{
@@ -391,6 +393,9 @@ width: 27px;
   opacity: 1;
   top: -15px;
   position: relative;
+  border: none;
+  background: none;
+
 }
 
 .windowstitle{
@@ -405,6 +410,11 @@ font-size: 26px;
 line-height: 100%;
 letter-spacing: 0%;
 text-align: center;
+}
+
+
+#one {
+ margin: 0;
 }
 
 
@@ -460,7 +470,7 @@ h3{
   grid-template-columns: 1fr;
   grid-template-rows: auto auto auto auto;
   width: 600px;
-  height: 720px;
+  height: 671px;
   margin: 0px;
 
 }
@@ -471,10 +481,25 @@ element {
   width: 600px;
   height: 322px;
 }
+
+
 .modaldeux {
   display: grid;
   grid-template-columns: 1fr auto;
+  width: 98%;
 }
+
+.choices {
+  gap: 7px;
+  margin: 64px;
+}
+
+#titre {
+  width: 476px;
+  height: 34px;
+}
+
+
 #valider{
 display: block;
 margin: 20px 230px;
@@ -484,7 +509,13 @@ margin: 20px 230px;
   justify-content: center;
   grid-template-rows: auto auto auto;
   display: grid;
+  width: 420px;
+  height: 169px;
+  opacity: 1;
+  align-items: center;
+  margin: 0 auto;
 }
+
 
 .formulaire {
   grid-template-rows: auto auto;
@@ -507,3 +538,74 @@ margin: 20px 230px;
   width: 15%
 }
 
+
+.valider {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnvalider {
+  width: 95%;
+}
+
+#categorie {
+ width: 484px;
+ height: 45px; 
+}
+
+
+#back{
+ width: 24px;
+  height: 24px;
+  opacity: 1;
+  color: black;
+  border: none;
+background: none;
+
+
+}
+
+#clostwo {
+  width: 24px;
+  height: 24px;
+  opacity: 1;
+  color: black;
+  border: none;
+  background: none;
+
+}
+
+
+.jpg{
+ justify-content: center;
+  display:flex
+}
+
+.labelupload{
+ display: flex;
+ justify-content: center;
+}
+
+.fa-solid.fa-xmark {
+  color: black;
+}
+
+
+#errorfichier {
+  justify-content: center;
+  display: flex;
+  color: red;
+}
+
+
+#modification {
+  background: none;
+}
+
+.delete-button{
+  background: none;
+  border: none;
+  color: black;
+}

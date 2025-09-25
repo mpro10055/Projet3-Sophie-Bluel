@@ -188,13 +188,17 @@ if (modificationadmin) {
       const img = document.createElement("img");
 
       img.src = work.imageUrl;
-      img.alt = work.title || "";
+      img.alt = work.title;
       img.classList.add("modal-image");
       pictures.appendChild(img);
       const deleteButton = document.createElement("button");
       deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
       deleteButton.classList.add("delete-button");
-      pictures.appendChild(deleteButton);
+      const item=document.createElement("div");
+      item.className="modal-item";
+      item.appendChild(img);
+        item.appendChild(deleteButton)
+      pictures.appendChild(item);
 
       const deleteUrl = 'http://localhost:5678/api/works/' + work.id;
 
@@ -236,6 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const onemodal = document.getElementById("one");
   const ajoutpictures = document.getElementById("ajoutpictures"); 
   const addphoto = document.getElementById("addphoto");
+  const modalwrapper = document.getElementById("modalwraper");
 
   if (modificationadmin) {
     modificationadmin.addEventListener("click", (e) => {
@@ -244,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ajoutpictures.classList.add("hidden");
       onemodal.classList.remove("hidden");
 
-      displaymodalpictures(allWorks || []);
+      displaymodalpictures(allWorks);
       console.log("Ouverture modale");
     });
   }
@@ -260,24 +265,19 @@ document.addEventListener("DOMContentLoaded", () => {
   if (addphoto) {
     addphoto.addEventListener("click", (e) => {
       e.preventDefault();
+    resetAddForm();
       ajoutpictures.classList.remove("hidden");
       onemodal.classList.add("hidden");
       console.log("Ouverture ajoutpictures");
     });
   }
+  if (modall)
+    modall.addEventListener("click", (e) => {
+  if(e.target===modall){
+  modall.classList.remove("active");
+ }
 });
-
-
-
-  ///if (modall){
-  ///modall.addEventListener("click", (e) => {
-    ///e.preventDefault();
-   /// modall.classList.remove("active");
-    ///console.log("Fermeture modale");
-  
-  ///}/
-///});
-
+})
 
 //////////////////////////////////////////////////////////
 ////modale deux/
@@ -320,12 +320,14 @@ document.addEventListener("DOMContentLoaded", () => {
 );
 
 /////////////////////////////////////////////////////
-const fileInputElement = document.getElementById("file-input");
-const uploadButtonElement = document.getElementById("upload-button");
+//const fileInputElement = document.getElementById("file-input");
 const imagePreviewElement = document.getElementById("preview");
 const iconupload = document.getElementById("icon-upload");
+labelupload = document.querySelector(".labelupload");
 
-fileInputElement.addEventListener("change", (e) => {
+
+
+fileInput.addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (file) {
     const reader = new FileReader();
@@ -334,9 +336,11 @@ fileInputElement.addEventListener("change", (e) => {
       console.log("File loaded:", e.target.result);
 
       if (imagePreviewElement.src) {
-        uploadButtonElement.classList.add("hidden");
+        uploadButton.classList.add("hidden");
         imagePreviewElement.classList.remove("hidden");
         iconupload.classList.add("hidden");
+        errorfichier.classList.add("hidden")
+
       }
     }
     reader.readAsDataURL(file);
@@ -346,22 +350,50 @@ fileInputElement.addEventListener("change", (e) => {
 
 
 
-
 const titleInput = document.getElementById("titre");
 const categorySelect = document.getElementById("categorie");
 const formulaire = document.getElementById("formulaire");
+const errorfichier= document.getElementById("errorfichier");
+
+
+
+ function resetAddForm(){
+  formulaire.reset();
+  fileInput.value="";
+  imagePreviewElement.src="";
+  errorfichier.classList.add("hidden")
+  error.classList.add("hidden");
+  imagePreviewElement.classList.remove("hidden");
+  uploadButton.classList.remove("hidden");
+  iconupload.classList.remove("hidden");
+  }
+
+ function update(){
+  const file=fileInput.files[0];
+  const title = titleInput.value;
+  const category = categorySelect.value;
+  valider.disabled =  !(file && title && category);
+ }
+ 
+ fileInput.addEventListener("change",update);
+ titleInput.addEventListener("input",update);
+ categorySelect.addEventListener("change",update);
+
+
 
 formulaire.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log("formulaire");
 
- const file = fileInputElement.files[0];
+
+ const file = fileInput.files[0];
  const title = titleInput.value;
  const category = Number(categorySelect.value);
 
+
   if (!file) {
-    error.textContent = "Aucun fichier sélectionné";
-    error.classList.remove("hidden");
+    errorfichier.textContent = "Aucun fichier sélectionné";
+    errorfichier.classList.remove("hidden");
     console.error("Aucun fichier sélectionné");
     return;
   }
@@ -380,7 +412,7 @@ formulaire.addEventListener("submit", (e) => {
 
 
   const formData = new FormData();
-  formData.append("image", fileInputElement.files[0]);
+  formData.append("image", fileInput.files[0]);
   formData.append("title", title);
   formData.append("category", category);
   console.log("FormData prepared:", formData);
@@ -404,6 +436,11 @@ fetch("http://localhost:5678/api/works", {
     allWorks.push(data);
     displayWorks(allWorks);
     displaymodalpictures(allWorks);
+    ajoutpictures.classList.add("hidden");
+    onemodal.classList.remove("hidden");
+
+     resetAddForm();
+     console.log(resetAddForm)
   })
   .catch((error) => {
     console.error("Erreur lors de l'envoi du formulaire:", error);

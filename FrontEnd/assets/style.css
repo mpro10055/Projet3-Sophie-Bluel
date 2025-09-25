@@ -149,7 +149,6 @@ button {
   font-weight: 700;
   font-size: 16px;
   line-height: 100%;
-  letter-spacing: 0%;
   text-align: center;
   border-radius: 60px;
   background-color: white;
@@ -267,7 +266,6 @@ footer nav ul {
 font-weight: 500;
 font-size: 14px;
 line-height: 100%;
-letter-spacing: 0%;
 }
 
 #login-email {
@@ -297,7 +295,6 @@ letter-spacing: 0%;
   font-family: Work Sans;
   font-size: 16px;
   line-height: 100%;
-  letter-spacing: 0%;
   text-decoration: underline;
   text-decoration-style: solid;
   text-decoration-thickness: auto;
@@ -329,7 +326,6 @@ letter-spacing: 0%;
   font-weight: 400;
   font-size: 14px;
   line-height: 100%;
-  letter-spacing: 0%;
   text-align: center;
 }
 #bar {
@@ -349,7 +345,6 @@ span {
   font-weight: 400;
   font-size: 16px;
   line-height: 100%;
-  letter-spacing: 0%;
   text-align: center;
   padding-top: 19px;
 }
@@ -372,6 +367,7 @@ span {
 
 .modalwrapper{
   overflow: auto;
+  max-width: 688px;
   width: 600px;
   height: 688px;
   padding: 20px;
@@ -380,11 +376,18 @@ span {
   grid-template-columns: 1fr;
   grid-template-rows: auto auto auto;
 }
+#one {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 86px;
+  margin: 15px 0;
+}
+
 
 .modal {
 display: grid;
 grid-template-columns: 1fr 20px;
-padding: 30px;
 }
 
 #closemodal {
@@ -405,16 +408,9 @@ left: 634px;
 opacity: 1;
 font-family: Work Sans;
 font-weight: 400;
-font-style: Regular;
 font-size: 26px;
 line-height: 100%;
-letter-spacing: 0%;
 text-align: center;
-}
-
-
-#one {
- margin: 0;
 }
 
 
@@ -425,6 +421,7 @@ text-align: center;
   width: 100%;
   justify-content: center;
   gap: 9px;
+
 }
 
 .modal-image{
@@ -440,10 +437,8 @@ h3{
 	left: 634px;
 	font-family: Work Sans;
 	font-weight: 400;
-	font-style: Regular;
 	font-size: 26px;
 	line-height: 100%;
-	letter-spacing: 0%;
 	text-align: center;
 	color: #000000;
 }
@@ -522,9 +517,6 @@ margin: 20px 230px;
   display: grid;
 }
 
-#one {
-  display: block;
-}
 .choices {
   display: grid;
   grid-template-rows: auto auto;
@@ -604,8 +596,21 @@ background: none;
   background: none;
 }
 
+.modal-item {
+  position: relative;
+}
+
 .delete-button{
   background: none;
   border: none;
   color: black;
+  cursor: pointer;
+  position: absolute;
+  top: -6px;
+  left: 22px;
+}
+
+.delete-button:hover{
+display: none;
+cursor: pointer;
 }

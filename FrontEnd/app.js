@@ -192,7 +192,7 @@ if (modificationadmin) {
       img.classList.add("modal-image");
       pictures.appendChild(img);
       const deleteButton = document.createElement("button");
-      deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+      deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
       deleteButton.classList.add("delete-button");
       const item=document.createElement("div");
       item.className="modal-item";
@@ -374,11 +374,20 @@ formulaire.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log("formulaire");
 
-
+ const maximum = 15
  const file = fileInput.files[0];
  const title = titleInput.value;
  const category = Number(categorySelect.value);
 
+   if(file.size>4 * 1024 *1024){
+    alert("fichier trop lourd")
+    return
+   }
+
+   if(allWorks.length>=15){
+    alert("limite atteint")
+    return
+   }
 
   if (!file) {
     errorfichier.textContent = "Aucun fichier sélectionné";

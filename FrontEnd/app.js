@@ -368,17 +368,6 @@ const errorfichier= document.getElementById("errorfichier");
   iconupload.classList.remove("hidden");
   }
 
- function update(){
-  const file=fileInput.files[0];
-  const title = titleInput.value;
-  const category = categorySelect.value;
-  valider.disabled =  !(file && title && category);
- }
- 
- fileInput.addEventListener("change",update);
- titleInput.addEventListener("input",update);
- categorySelect.addEventListener("change",update);
-
 
 
 formulaire.addEventListener("submit", (e) => {

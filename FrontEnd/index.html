@@ -34,23 +34,25 @@
 			<form id="formulaire">
 				<div class="uploader">
 				<label for="file-input" class="labelupload">
-					<img id="preview" class="preview hidden" src="#" alt="Aperçu de l'image" />
-					<div id="icon-upload">
+					<img id="preview" class="preview hidden" src="#" alt="Aperçu de l'image">
+					<span class="ics" id="icon-upload">
 					<i class="fa-regular fa-image"></i>	
-					</div>
+					</span>
 					</label>
+					<div class="two">
 					<button id ="upload-button" class="upload-button" type="button">
-							<p>+Ajouter une photo</p>
-				<input id="file-input" type="file" accept="image/png, image/jpeg"
-				style="display: none;"/>
+							<span class="ajt">+Ajouter une photo</span>
 				</button>
-				<spain class="jpg">jpg, png : 4mo max</spain>
+				<input id="file-input" type="file" accept="image/png, image/jpeg"
+				style="display: none;">
+					</div>
+				<span class="jpg">jpg, png : 4mo max</span>
 			</div>
 			<p id="errorfichier" class="errorfichier hidden"></p>
 				<div class="choices">
 				<label for="titre" class="titre">titre</label>
-				<input type="text" id="titre" name="title" class="title-input"/>
-				<label for="categorie" class="categorie" name="categorie">catégorie</label>
+				<input type="text" id="titre" name="title" class="title-input">
+				<label for="categorie" class="categorie">catégorie</label>
 				<select id="categorie" name="category" class="category-input">
 				<option value="">--Choisir une catégorie--</option>
 				</select>
@@ -61,12 +63,9 @@
 				<p id="error" class="error hidden"></p>
 			<p id="info" class="info hidden"> </p>
 			</form>
-			
-		</section>
-			</div>
-		</div>
-		</div>
+		
 	</section>
+	</div>
 		</aside>
 
 

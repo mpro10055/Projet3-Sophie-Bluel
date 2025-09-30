@@ -52,10 +52,12 @@ function filterCategories(id) {
     (work) => work.categoryId === Number(id)
   );
   displayWorks(filteredWorks);
+
 }
 
 fetch(apiCategories)
-  .then((response) => response.json())
+  .then((response) => { return response.json()
+  })
   .then((Categories) => {
     console.log("Categories :", Categories);
 
@@ -64,7 +66,7 @@ fetch(apiCategories)
     btnall.dataset.id = "0";
 
     btnall.addEventListener("click", () => {
-      filterCategories(btnall.dataset.id);
+      filterCategories(btnall.dataset.id);        
     });
     filtersContainer.appendChild(btnall);
 
@@ -73,16 +75,16 @@ fetch(apiCategories)
       btn.textContent = Category.name;
       btn.dataset.id = Category.id;
 
-      if (
-        Category.name === "Appartements" ||
-        Category.name === "Hotels & restaurants"
-      ) {
-        btn.classList.add("large-button");
+      if (Category.name === "Appartements" ) {
+           btn.classList.add("large-button");
+      }
+      if (Category.name === "Hotels & restaurants") {
+           btn.classList.add("large-button");
       }
 
       console.log("btn", btn);
       btn.addEventListener("click", () => {
-        filterCategories(btn.dataset.id);
+      filterCategories(btn.dataset.id);
       });
       filtersContainer.appendChild(btn);
     });
@@ -139,7 +141,7 @@ function tokenUi() {
 
   if (token) {
     loginbutton.textContent = "Logout";
-    modificationadmin?.classList.remove("hidden");
+    modificationadmin.classList.remove("hidden");
     barUi.classList.remove("hidden");
   } else {
     loginbutton.textContent = "Login";
@@ -197,7 +199,7 @@ if (modificationadmin) {
       const item=document.createElement("div");
       item.className="modal-item";
       item.appendChild(img);
-        item.appendChild(deleteButton)
+      item.appendChild(deleteButton)
       pictures.appendChild(item);
 
       const deleteUrl = 'http://localhost:5678/api/works/' + work.id;
@@ -265,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (addphoto) {
     addphoto.addEventListener("click", (e) => {
       e.preventDefault();
-    resetAddForm();
+      resetAddForm();
       ajoutpictures.classList.remove("hidden");
       onemodal.classList.add("hidden");
       console.log("Ouverture ajoutpictures");
@@ -320,7 +322,6 @@ document.addEventListener("DOMContentLoaded", () => {
 );
 
 /////////////////////////////////////////////////////
-//const fileInputElement = document.getElementById("file-input");
 const imagePreviewElement = document.getElementById("preview");
 const iconupload = document.getElementById("icon-upload");
 labelupload = document.querySelector(".labelupload");
@@ -379,10 +380,6 @@ formulaire.addEventListener("submit", (e) => {
  const title = titleInput.value;
  const category = Number(categorySelect.value);
 
-   if(file.size>4 * 1024 *1024){
-    alert("fichier trop lourd")
-    return
-   }
 
    if(allWorks.length>=15){
     alert("limite atteint")

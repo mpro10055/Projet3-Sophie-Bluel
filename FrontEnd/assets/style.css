@@ -375,6 +375,7 @@ span {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto auto;
+  border-radius: 10px;
 }
 #one {
   display: flex;
@@ -497,7 +498,7 @@ element {
 
 #valider{
 display: block;
-margin: 20px 230px;
+margin: 20px 269px;
 }
 
 .uploader {
@@ -516,6 +517,15 @@ margin: 20px 230px;
   grid-template-rows: auto auto;
   display: grid;
 }
+  .fa-regular.fa-image {
+  display: flex;
+  align-items: center;
+}
+
+#preview {
+  width: 15%;
+  color: #E8F1F6;
+}
 
 .choices {
   display: grid;
@@ -528,6 +538,11 @@ margin: 20px 230px;
 
 #preview {
   width: 15%
+}
+
+.two{
+ display: flex;
+justify-content: center; 
 }
 
 
@@ -606,11 +621,29 @@ background: none;
   color: black;
   cursor: pointer;
   position: absolute;
-  top: -6px;
+  top: -9px;
   left: 22px;
 }
 
+.fa-solid.fa-trash-can {
+  color: white;
+  background: black;
+  font-size: 14px;
+  height: 17px;
+}
+
 .delete-button:hover{
-display: none;
 cursor: pointer;
+display: none;
+}
+.ajt {
+  color: black;
+  text-align: center;
+  margin-top: -30px;
+}
+#icon-upload {
+  display: block;
+  padding: 0;
+  width: 105px;
+  height: 100%;
 }

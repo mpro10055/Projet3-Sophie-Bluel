@@ -262,7 +262,7 @@ footer nav ul {
 	display:none;
 }
 .email,.pass {
- font-family: Work Sans;
+ font-family: "Work Sans";
 font-weight: 500;
 font-size: 14px;
 line-height: 100%;
@@ -292,7 +292,7 @@ line-height: 100%;
 .mdp-oublie {
   width: 186px;
   height: 16px;
-  font-family: Work Sans;
+  font-family: "Work Sans";
   font-size: 16px;
   line-height: 100%;
   text-decoration: underline;
@@ -322,7 +322,7 @@ line-height: 100%;
   width: 84px;
   border:white ;
   color: black;
-  font-family: Work Sans;
+  font-family: "Work Sans";
   font-weight: 400;
   font-size: 14px;
   line-height: 100%;
@@ -341,7 +341,7 @@ span {
   width: 100%;
   height: 19px;
   gap: 21px;
-  font-family: Work Sans;
+  font-family: "Work Sans";
   font-weight: 400;
   font-size: 16px;
   line-height: 100%;
@@ -407,7 +407,7 @@ height: 30px;
 top: 720px;
 left: 634px;
 opacity: 1;
-font-family: Work Sans;
+font-family: "Work Sans";
 font-weight: 400;
 font-size: 26px;
 line-height: 100%;
@@ -434,9 +434,7 @@ h3{
 	width: auto;
 	height: 30px;
 	opacity: 1;
-	top: 720px;
-	left: 634px;
-	font-family: Work Sans;
+	font-family: "Work Sans";
 	font-weight: 400;
 	font-size: 26px;
 	line-height: 100%;
@@ -487,7 +485,9 @@ element {
 
 .choices {
   gap: 7px;
-  margin: 64px;
+  margin: 71px;
+  display: grid;
+  grid-template-rows: auto auto;
 }
 
 #titre {
@@ -496,9 +496,17 @@ element {
 }
 
 
-#valider{
-display: block;
-margin: 20px 269px;
+#valider {
+  display: block;
+  margin: 20px 192px;
+  width: 237px;
+  background-color:#1D6154;
+  color: #FFF;
+  font-family: Syne;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+  text-align: center;
 }
 
 .uploader {
@@ -517,7 +525,7 @@ margin: 20px 269px;
   grid-template-rows: auto auto;
   display: grid;
 }
-  .fa-regular.fa-image {
+  .ular.fa-image {
   display: flex;
   align-items: center;
 }
@@ -525,11 +533,6 @@ margin: 20px 269px;
 #preview {
   width: 15%;
   color: #E8F1F6;
-}
-
-.choices {
-  display: grid;
-  grid-template-rows: auto auto;
 }
 
 .uploader {
@@ -554,7 +557,7 @@ justify-content: center;
 }
 
 .btnvalider {
-  width: 95%;
+  width: 100%;
 }
 
 #categorie {
@@ -570,7 +573,7 @@ justify-content: center;
   color: black;
   border: none;
 background: none;
-
+margin-left: 9px;
 
 }
 
@@ -587,7 +590,13 @@ background: none;
 
 .jpg{
  justify-content: center;
-  display:flex
+  display:flex;
+  color: #444;
+  font-family: "Work Sans";
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 100%;
+  text-align: center;
 }
 
 .labelupload{
@@ -622,13 +631,12 @@ background: none;
   cursor: pointer;
   position: absolute;
   top: -9px;
-  left: 22px;
+  left: 25px;
 }
 
 .fa-solid.fa-trash-can {
-  color: white;
-  background: black;
-  font-size: 14px;
+  color: rgb(0, 0, 0);
+  font-size: 13px;
   height: 17px;
 }
 
@@ -639,11 +647,34 @@ display: none;
 .ajt {
   color: black;
   text-align: center;
-  margin-top: -30px;
+  color: #306685;
+  margin-top: -20px;
 }
+
 #icon-upload {
   display: block;
   padding: 0;
   width: 105px;
   height: 100%;
+}
+
+#upload-button {
+  width: 173px;
+  height: 36px;
+  opacity: 1;
+  border-radius: 50px;
+  background-color: #CBD6DC;
+}
+
+.titre {
+  font-family: "Work Sans";
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+}
+.categorie {
+  font-family: "Work Sans";
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
 }

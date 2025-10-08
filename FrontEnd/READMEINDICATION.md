@@ -4,8 +4,7 @@ Projet 3 - Portofolio Architecte Sophie Bluel
 
 1 Installer et lancer le backend: 
 
-Ouvrez un terminal Command prompt à cet emplacement pour installer les dépendances du projet et executez la commande 
-cd Portfolio-architecte-sophie-bluel, cd backend une fois dans le backend, lancer la commande npm.cmd install.
+Lancer la commande npm.cmd install.
 Les dépendances installées lancez le projet avec la commande npm.cmd start.
 
 2 Lancer La page : 

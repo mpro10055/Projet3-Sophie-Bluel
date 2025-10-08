@@ -42,6 +42,14 @@ const apiCategories = "http://localhost:5678/api/categories";
 
 const filtersContainer = document.querySelector("#filters");
 
+
+document.querySelectorAll("#filters button").forEach(btn => {
+{
+btn.style.backgroundColor= "";
+btn.style.color="";
+}
+});
+
 function filterCategories(id) {
   if (id == "0") {
     displayWorks(allWorks);
@@ -66,7 +74,17 @@ fetch(apiCategories)
     btnall.dataset.id = "0";
 
     btnall.addEventListener("click", () => {
-      filterCategories(btnall.dataset.id);        
+    
+    document.querySelectorAll("#filters button").forEach(btn => {
+    {
+    btn.style.backgroundColor= "";
+    btn.style.color="";
+    }
+    });
+      
+    filterCategories(btnall.dataset.id);    
+    btnall.style.backgroundColor="#1D6154";
+    btnall.style.color="white" 
     });
     filtersContainer.appendChild(btnall);
 
@@ -75,16 +93,24 @@ fetch(apiCategories)
       btn.textContent = Category.name;
       btn.dataset.id = Category.id;
 
-      if (Category.name === "Appartements" ) {
-           btn.classList.add("large-button");
-      }
-      if (Category.name === "Hotels & restaurants") {
+      if (Category.name === "Appartements" ||"Hotels & restaurants") {
            btn.classList.add("large-button");
       }
 
       console.log("btn", btn);
       btn.addEventListener("click", () => {
+        
+      document.querySelectorAll("#filters button").forEach(btn => {
+      {
+      btn.style.backgroundColor= "";
+      btn.style.color="";
+      }
+      });
+
+      
       filterCategories(btn.dataset.id);
+      btn.style.backgroundColor="#1D6154";
+      btn.style.color="white" 
       });
       filtersContainer.appendChild(btn);
     });
@@ -145,7 +171,7 @@ function tokenUi() {
     barUi.classList.remove("hidden");
   } else {
     loginbutton.textContent = "Login";
-    modificationadmin?.classList.add("hidden");
+    modificationadmin.classList.add("hidden");
     barUi.classList.add("hidden");
   }
 }
@@ -246,13 +272,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (modificationadmin) {
     modificationadmin.addEventListener("click", (e) => {
-      e.preventDefault();
-      modall.classList.add("active");
-      ajoutpictures.classList.add("hidden");
-      onemodal.classList.remove("hidden");
+    e.preventDefault();
+    modall.classList.add("active");
+    ajoutpictures.classList.add("hidden");
+    onemodal.classList.remove("hidden");
 
-      displaymodalpictures(allWorks);
-      console.log("Ouverture modale");
+    displaymodalpictures(allWorks);
+    console.log("Ouverture modale");
     });
   }
 
@@ -325,12 +351,50 @@ document.addEventListener("DOMContentLoaded", () => {
 const imagePreviewElement = document.getElementById("preview");
 const iconupload = document.getElementById("icon-upload");
 labelupload = document.querySelector(".labelupload");
+const titleInput = document.getElementById("titre");
+const categorySelect = document.getElementById("categorie");
+const formulaire = document.getElementById("formulaire");
+const errorfichier= document.getElementById("errorfichier");
+const maximum = 15 ;
+const valide= document.getElementById("valider");
+const error = document.getElementById("error");
 
 
 
 fileInput.addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if (file) {
+  const file = e.target.files[0] 
+  console.log(e.target.files[0])
+  const maxsize= 4* 1024* 1024
+
+
+if (!file) {
+    errorfichier.textContent = "Aucun fichier sélectionné";
+    errorfichier.classList.remove("hidden");
+    console.error("Aucun fichier sélectionné");
+    return;
+
+ } else {
+  errorfichier.classList.add("hidden")
+}
+
+
+   if (file.size > maxsize){
+    error.textContent="fichier trop lourd";
+    error.classList.remove("hidden");
+    errorfichier.classList.add("hidden")
+    imagePreviewElement.src="";
+    imagePreviewElement.classList.add("hidden");
+    iconupload.classList.remove("hidden")
+    uploadButton.classList.remove("hidden")
+    return
+
+    } else {
+
+      error.classList.add("hidden");
+    } 
+
+     if (file) {
+
     const reader = new FileReader();
     reader.onload = (e) => {
       imagePreviewElement.src = e.target.result;
@@ -344,54 +408,98 @@ fileInput.addEventListener("change", (e) => {
 
       }
     }
+ 
     reader.readAsDataURL(file);
   }
+
+
   console.log("Selected file:", file);
   });
+ 
 
+titleInput.addEventListener("input", (e) => 
+{
+  const title = titleInput.value.trim()
+ 
 
+   if(title.length>=30){
+    error.textContent="limite de 30 caracteres";
+    error.classList.remove("hidden")
+    return;
 
-const titleInput = document.getElementById("titre");
-const categorySelect = document.getElementById("categorie");
-const formulaire = document.getElementById("formulaire");
-const errorfichier= document.getElementById("errorfichier");
+  }else {
+    error.classList.add("hidden")
+   }
 
+ 
+})
 
+categorySelect.addEventListener("change", (e) => {
 
- function resetAddForm(){
-  formulaire.reset();
-  fileInput.value="";
-  imagePreviewElement.src="";
-  errorfichier.classList.add("hidden")
-  error.classList.add("hidden");
-  imagePreviewElement.classList.remove("hidden");
-  uploadButton.classList.remove("hidden");
-  iconupload.classList.remove("hidden");
+const category = Number(categorySelect.value)
+
+ if (!category) {
+    error.textContent = "La catégorie est requise";
+    error.classList.remove("hidden");
+    console.error("La catégorie est requise");
+    return;
+  } else {
+    error.classList.add("hidden")
   }
+}
+);
 
-
+////////////////////////////////////////////////////////////////
 
 formulaire.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log("formulaire");
 
  const maximum = 15
- const file = fileInput.files[0];
+ const file = fileInput.files[0]
  const title = titleInput.value;
  const category = Number(categorySelect.value);
+ const maxsize= 4* 1024* 1024
 
-
-   if(allWorks.length>=15){
-    alert("limite atteint")
-    return
-   }
 
   if (!file) {
     errorfichier.textContent = "Aucun fichier sélectionné";
     errorfichier.classList.remove("hidden");
     console.error("Aucun fichier sélectionné");
     return;
-  }
+
+
+ } else {
+  errorfichier.classList.add("hidden")
+ }
+
+  if (file.size > maxsize){
+    error.textContent="fichier trop lourd"
+    error.classList.remove("hidden");
+    errorfichier.classList.add("hidden")
+    return
+
+   } else {
+    error.classList.add("hidden");
+    }
+
+
+   if(allWorks.length>=15){
+    alert("limite atteint");
+    return
+   }
+
+   if(title.length>=30){
+    error.textContent="limite de 30 caracteres";
+    error.classList.remove("hidden")
+    return
+
+
+    } else {
+    error.classList.add("hidden")
+   }
+
+
   if (!title) {
     error.textContent = "Le titre est requis";
     error.classList.remove("hidden");
@@ -403,14 +511,22 @@ formulaire.addEventListener("submit", (e) => {
     error.classList.remove("hidden");
     console.error("La catégorie est requise");
     return;
+  
+  } else {
+    error.classList.add("hidden")
   }
 
+
+
+  
 
   const formData = new FormData();
   formData.append("image", fileInput.files[0]);
   formData.append("title", title);
   formData.append("category", category);
   console.log("FormData prepared:", formData);
+
+
 
 
 fetch("http://localhost:5678/api/works", {
@@ -441,6 +557,18 @@ fetch("http://localhost:5678/api/works", {
     console.error("Erreur lors de l'envoi du formulaire:", error);
   });
 });
+
+ function resetAddForm(){
+  formulaire.reset();
+  fileInput.value="";
+  imagePreviewElement.src="";
+  errorfichier.classList.add("hidden")
+  error.classList.add("hidden");
+  imagePreviewElement.classList.add("hidden");
+  uploadButton.classList.remove("hidden");
+  iconupload.classList.remove("hidden");
+
+  }
 
 
 
